@@ -1,2 +1,2 @@
-# retro-snake
-A snake game using Express and JS
+# Pacman Game
+A pacman game using Express and JS
