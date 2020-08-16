@@ -1,2 +1,2 @@
-# Pacman Game
-A pacman game using Express and JS
+# Space Invaders Game
+A space invaders game using Express and JS
