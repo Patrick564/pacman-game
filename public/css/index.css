@@ -1,0 +1,9 @@
+@tailwind base;
+@taiwind components;
+@tailwind utilities;
+
+#canvas {
+    /* 18rem - 16rem */
+    width: 100%;
+    height: 100%;
+}
