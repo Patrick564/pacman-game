@@ -13,13 +13,33 @@ let speedY = -6;
 let enemySpeedX = 0.3;
 let enemySpeedY = -0.3;
 
-window.addEventListener('keydown', (event) => {
+let enemyRow = 3;
+let enemyCol = 7;
+let enemyWidth = 18;
+let enemyHeight = 7;
+let enemyPadding = 10;
+let enemyTopMargin = 15;
+let enemyLeftMargin = 15;
+
+let enemyShips = [];
+
+for (let row = 0; row < enemyRow; row++) {
+    enemyShips[row] = [];
+
+    for (let col = 0; col < enemyCol; col++) {
+        enemyShips[row][col] = {
+            x: (col * (enemyWidth + enemyPadding)) + enemyLeftMargin,
+            y: (row * (enemyHeight + enemyPadding)) + enemyTopMargin,
+            status: 1,
+        };
+    }
+}
+
+window.addEventListener('keypress', (event) => {
     if (event.key === 'd') {
         moveRight();
-        console.log('d');
     } else if (event.key === 'a') {
         moveLeft();
-        console.log('a');
     }
 });
 
@@ -31,10 +51,16 @@ function drawShip() {
 }
 
 function drawEnemyShips() {
-    ctx.beginPath();
-    ctx.fillStyle = '#0095DD';
-    ctx.fillRect(enemyPosX, enemyPosY, 25, 5);
-    ctx.closePath();
+    for (row of enemyShips) {
+        for (col of row) {
+            if (col.status === 1) {
+               ctx.beginPath();
+                ctx.fillStyle = '#0095DD';
+                ctx.fillRect(col.x, col.y, enemyWidth, enemyHeight);
+                ctx.closePath(); 
+            }
+        }
+    }
 }
 
 function moveLeft() {
@@ -54,16 +80,19 @@ function drawAll() {
     drawShip();
     drawEnemyShips();
 
-    if (enemyPosX > (canvas.width - 40) || enemyPosX < 15) {
+    if (enemyShips[0][6].x > (canvas.width - 33) || enemyShips[0][0].x < 15) {
         enemySpeedX = -enemySpeedX;
     }
     
-    enemyPosX += enemySpeedX;
+    // enemyPosX += enemySpeedX;
 
-    console.log(canvas.width);
-    console.log(enemyPosX);
+    for (row of enemyShips) {
+        for (col of row) {
+            col.x += enemySpeedX;
+        }
+    }
+
+    // console.log(enemyShips[0][0].x);
 }
-
-
 
 setInterval(drawAll, 10);
